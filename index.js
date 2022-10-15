@@ -8,5 +8,5 @@ const tarefa = (id, novaTarefa) => `<div id = '${id}'>
 function adicionarTarefa() {
     id++
     const novaTarefa = document.getElementById('nome-tarefa').value //pega o valor que está inserido no input
-    document.querySelector('#lista-tarefas').innerHTML =+tarefa(id, novaTarefa)
+    document.querySelector('#lista-tarefas').innerHTML += tarefa(id, novaTarefa)
 }
