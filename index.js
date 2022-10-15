@@ -1,6 +1,12 @@
+let id = 0
+
+const tarefa = (id, novaTarefa) => `<div id = '${id}'>
+<p>${novaTarefa}</p>
+<input type ="checkbox" />
+</div>`
+
 function adicionarTarefa() {
-    const tarefa = document.createElement('div')
-    tarefa.innerHTML = 'Tarefa'
-    tarefa.id = 'id-tarefa'
-    document.querySelector('#lista-tarefas').appendChild(tarefa)
+    id++
+    const novaTarefa = document.getElementById('nome-tarefa').value //pega o valor que está inserido no input
+    document.querySelector('#lista-tarefas').innerHTML =+tarefa(id, novaTarefa)
 }
