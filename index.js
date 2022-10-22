@@ -5,8 +5,30 @@ const tarefa = (id, novaTarefa) => `<div id = '${id}'>
 <input type ="checkbox" />
 </div>`
 
+function exibirLista() {
+    id++
+    const tarefas = JSON.parse(localStorage.getItem('lista-tarefa'))
+    if (tarefas) {
+        tarefas.forEach(tarefaListada => {
+            document.querySelector('#lista-tarefas').innerHTML += tarefa(id, tarefaListada)
+        });
+    }
+    
+}
+
 function adicionarTarefa() {
     id++
     const novaTarefa = document.getElementById('nome-tarefa').value //pega o valor que está inserido no input
     document.querySelector('#lista-tarefas').innerHTML += tarefa(id, novaTarefa)
+    const listaTarefas = localStorage.getItem('lista-tarefas')
+    if (listaTarefas) {
+        //incrementar a lista de tarefas
+        const novaLista = JSON.parse(listaTarefas)
+        novaLista.push(novaTarefa)
+        localStorage.setItem('lista-tarefas', JSON.stringify(novaLista))
+    } else {
+        localStorage.setItem('lista-tarefas', JSON.stringify([novaTarefa]))
+    }  
 }
+
+exibirLista()
