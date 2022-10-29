@@ -1,4 +1,38 @@
-.body {
-    background-color: pink;
-    color: purple;
+body {
+    background-color: #ff3d00; /*fazer transição de cores, degradê */
+    color: #002c2b;
+    font-family: 'Libre Baskerville', serif;
+}
+
+h1 {
+    text-align: center;
+}
+
+button {
+    text-align: center;
+    text-decoration: none;
+    align-content: center;
+    align-content: flex-end;
+    color: black;
+    background-color: #0a837f;
+    border-radius: 30px;
+    border: none;
+}
+
+button :hover {
+    size: 30px;
+}
+
+p {
+    color: #faeeca;
+    display: inline;
+    text-align: center;
+    padding: 10px;
+    border: 10px;
+}
+
+.corpo-tarefa {
+    align-items: center;
+    display: inline;
+    
 }
