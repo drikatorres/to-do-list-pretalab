@@ -1,19 +1,32 @@
 let id = 0
 
 const tarefa = (id, novaTarefa) => `<div id = '${id}'>
-<p>${novaTarefa}</p>
 <input type ="checkbox" />
+<p>${novaTarefa}</p>
+<button onclick="removerTarefa(${id})">Remover Tarefa</button>
 </div>`
 
 function exibirLista() {
-    id++
     const tarefas = JSON.parse(localStorage.getItem('lista-tarefa'))
     if (tarefas) {
         tarefas.forEach(tarefaListada => {
+            id++
             document.querySelector('#lista-tarefas').innerHTML += tarefa(id, tarefaListada)
         });
     }
-    
+}
+
+const validarTarefa = (novaTarefa) => {
+    let tarefaExistente = false
+    const listaTarefas = JSON.parse(localStorage.getItem('lista-tarefas'))
+    listaTarefas.map(tarefa => {
+        if (tarefa === novaTarefa) {
+            tarefaExistente = true
+            alert('Tarefa já adicionada')
+        }
+        
+    })
+        return tarefaExistente
 }
 
 function adicionarTarefa() {
@@ -21,6 +34,7 @@ function adicionarTarefa() {
     const novaTarefa = document.getElementById('nome-tarefa').value //pega o valor que está inserido no input
     document.querySelector('#lista-tarefas').innerHTML += tarefa(id, novaTarefa)
     const listaTarefas = localStorage.getItem('lista-tarefas')
+    validarTarefa(JSON.parse(listaTarefas))
     if (listaTarefas) {
         //incrementar a lista de tarefas
         const novaLista = JSON.parse(listaTarefas)
@@ -29,6 +43,18 @@ function adicionarTarefa() {
     } else {
         localStorage.setItem('lista-tarefas', JSON.stringify([novaTarefa]))
     }  
+}
+
+const removerTarefa = (id) => {
+    const tarefaDeletada = document.getElementById(id).innerHTML
+    //JSON.parse transforma String em array
+    const listaTarefas = JSON.parse(localStorage.getItem('lista-tarefas'))
+    //retorna tarefas diferentes de tarefas deletadas
+    const novaListaTarefa = listaTarefas.filter(tarefa => tarefa !== tarefaDeletada)
+    localStorage.setItem('lista-tarefas', JSON.stringify(novaListaTarefa))
+    document.querySelector('#lista-tarefas').innerHTML = ''
+    exibirLista()
+
 }
 
 exibirLista()
