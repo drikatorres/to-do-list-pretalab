@@ -1,10 +1,11 @@
 let id = 0
 
 const tarefa = (id, novaTarefa) => `<div id = '${id}'>
-<input type ="checkbox" />
-<p>${novaTarefa}</p>
-<button onclick="removerTarefa(${id})">Remover Tarefa</button>
+<input type="checkbox" onchange="marcarTarefa(${id})"/>
+<p id='${id}'>${novaTarefa}</p>
+<button onclick="removerTarefa(${id})">Remover Tarefas</button>
 </div>`
+
 
 function exibirLista() {
     const tarefas = JSON.parse(localStorage.getItem('lista-tarefa'))
@@ -13,6 +14,16 @@ function exibirLista() {
             id++
             document.querySelector('#lista-tarefas').innerHTML += tarefa(id, tarefaListada)
         });
+    }
+}
+
+const marcarTarefa = (id) => {
+    const strike = document.getElementById(`strike${id}`)
+    if(strike){
+        document.getElementById(id).innerHTML = strike.innerHTML
+    } else {
+        const tarefaConcluida = document.getElementById(id).innerHTML
+        document.getElementById(id).innerHTML = `<strike id='strike${id}'>${tarefaConcluida}</strike>`
     }
 }
 
@@ -53,6 +64,7 @@ const removerTarefa = (id) => {
     const novaListaTarefa = listaTarefas.filter(tarefa => tarefa !== tarefaDeletada)
     localStorage.setItem('lista-tarefas', JSON.stringify(novaListaTarefa))
     document.querySelector('#lista-tarefas').innerHTML = ''
+    alert('Esse botão remove todas as tarefas')
     exibirLista()
 
 }
